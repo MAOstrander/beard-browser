@@ -31,13 +31,36 @@ angular.module('starter.controllers', [])
     menu.refreshMenu();
 
     $ionicHistory.nextViewOptions({
-      disableAnimate: true,
       disableBack: true
     });
     $state.go('app.playlists');;
   };
+  menu.editMode = false;
+  menu.editNote = function (key, value) {
+    console.log("hey");
+    menu.tempKey = key;
+    menu.tempValue = value;
+    menu.editMode = true;
+  }
+
+  menu.addNote = function () {
+    var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
+
+      var title = notes.titleInput;
+      var content = notes.contentInput;
+        if (savedNotes.hasOwnProperty(title) === false) {
+          savedNotes[title] = content;
+          localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+          notes.clear();
+          $scope.$parent.menu.refreshMenu();
+          // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+        } else {
+          console.log("you already have a note by this title");
+        }
+  };
 
 })
+
 
 .controller('PlaylistsCtrl', function($scope) {
     var notes = this;
