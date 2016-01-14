@@ -9,36 +9,12 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  // Form data for the login modal
-  $scope.loginData = {};
+  var menu = this;
+  menu.refreshMenu = function () {
+    menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+  }
+  menu.refreshMenu();
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -47,6 +23,22 @@ angular.module('starter.controllers', [])
     notes.clear = function () {
       notes.titleInput = "";
       notes.contentInput = "";
+    };
+
+    notes.addNote = function () {
+      var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
+        console.log("history", history);
+      var title = notes.titleInput;
+      var content = notes.contentInput;
+        if (savedNotes.hasOwnProperty(title) === false) {
+          savedNotes[title] = content;
+          localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+          notes.clear();
+          $scope.$parent.menu.refreshMenu();
+          // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+        } else {
+          console.log("you already have a note by this title");
+        }
     };
 })
 
