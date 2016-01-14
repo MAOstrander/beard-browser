@@ -1,6 +1,7 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicHistory, $state) {
+
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -28,6 +29,12 @@ angular.module('starter.controllers', [])
     console.log("post delete menu.savedNotes", menu.savedNotes);
     localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
     menu.refreshMenu();
+
+    $ionicHistory.nextViewOptions({
+      disableAnimate: true,
+      disableBack: true
+    });
+    $state.go('app.playlists');;
   };
 
 })
