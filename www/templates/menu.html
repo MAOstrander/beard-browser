@@ -21,7 +21,7 @@
         <ion-item menu-close href="#/app/playlists">
           New Note / Home
         </ion-item>
-        <ion-item menu-close ng-click="" ng-repeat="(key, value) in menu.savedNotes">
+        <ion-item menu-close ng-repeat="(key, value) in menu.savedNotes" ng-click="menu.loadNote(key, value)" href="#/app/playlists/playlist">
           {{key}}
         </ion-item>
       </ion-list>
