@@ -15,11 +15,20 @@ angular.module('starter.controllers', [])
   }
   menu.refreshMenu();
 
-  menu.loadNote= function (key, value)  {
+  menu.loadNote = function (key, value)  {
     menu.loadedKey = key;
     menu.loadedValue = value;
     console.log("menu.loadedValue", menu.loadedValue);
   }
+
+  menu.deleteNote = function (key) {
+    console.log("key", key);
+    console.log("pre delete menu.savedNotes", menu.savedNotes);
+    delete menu.savedNotes[key];
+    console.log("post delete menu.savedNotes", menu.savedNotes);
+    localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
+    menu.refreshMenu();
+  };
 
 })
 

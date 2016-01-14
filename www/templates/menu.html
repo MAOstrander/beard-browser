@@ -19,10 +19,16 @@
     <ion-content>
       <ion-list>
         <ion-item menu-close href="#/app/playlists">
-          New Note / Home
+          <strong>New Note / Home</strong>
         </ion-item>
-        <ion-item menu-close ng-repeat="(key, value) in menu.savedNotes" ng-click="menu.loadNote(key, value)" href="#/app/playlists/playlist">
+        <div class="item item-divider">
+        Saved Notes
+        </div>
+        <ion-item menu-close ng-repeat="(key, value) in menu.savedNotes" ng-click="menu.loadNote(key, value)" href="#/app/playlists/playlist" class="item-button-right">
           {{key}}
+          <button class="button button-assertive" ng-click="menu.deleteNote(key)">
+            <i class="icon ion-trash-a"></i>
+          </button>
         </ion-item>
       </ion-list>
     </ion-content>
