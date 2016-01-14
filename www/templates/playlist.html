@@ -1,13 +1,16 @@
-<ion-view view-title="Playlist">
+<ion-view view-title="{{menu.loadedKey}}">
   <ion-content>
     <div class="card">
-      <div class="item item-divider">
+      <!-- <div class="item item-divider">
         {{menu.loadedKey}}
-      </div>
+      </div> -->
       <div class="item item-text-wrap">
         {{menu.loadedValue}}
       </div>
-
+      <div class="button-bar">
+        <a class="button button-energized button-full" ng-disabled="noteInput.$invalid" ng-click="notes.editNote()">Edit</a>
+        <a class="button button-assertive button-full" ng-click="menu.deleteNote(menu.loadedKey)" href="#/app/playlists">Delete</a>
+      </div>
     </div>
   </ion-content>
 </ion-view>
