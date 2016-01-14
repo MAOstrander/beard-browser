@@ -1,4 +1,4 @@
-<ion-view view-title="New Note">
+<ion-view view-title="New Note" ng-controller="PlaylistsCtrl as notes">
   <ion-content>
     <form class="list" name="noteInput">
       <label class="item item-input">
@@ -7,8 +7,8 @@
       <label class="item item-input">
         <textarea ng-model="notes.contentInput" placeholder="Content" rows="20" required></textarea>
       </label>
-      <button class="item button button-full button-balanced" ng-disabled="noteInput.$invalid" ng-click="addNote()">Save</button>
-      <button class="item button button-full button-assertive" ng-click="clear()">Clear</button>
+      <button class="item button button-full button-balanced" ng-disabled="noteInput.$invalid" ng-click="notes.addNote()">Save</button>
+      <button class="item button button-full button-assertive" ng-click="notes.clear()">Clear</button>
     </form>
   </ion-content>
 </ion-view>
