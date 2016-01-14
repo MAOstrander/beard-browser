@@ -15,6 +15,12 @@ angular.module('starter.controllers', [])
   }
   menu.refreshMenu();
 
+  menu.loadNote= function (key, value)  {
+    menu.loadedKey = key;
+    menu.loadedValue = value;
+    console.log("menu.loadedValue", menu.loadedValue);
+  }
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
