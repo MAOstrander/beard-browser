@@ -11,6 +11,9 @@ angular.module('starter.controllers', [])
   //});
 
   var menu = this;
+  menu.tempKey = '';
+  menu.tempValue = '';
+
   menu.refreshMenu = function () {
     menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
   }
@@ -36,27 +39,40 @@ angular.module('starter.controllers', [])
     $state.go('app.playlists');;
   };
   menu.editMode = false;
-  menu.editNote = function (key, value) {
-    console.log("hey");
-    menu.tempKey = key;
-    menu.tempValue = value;
+  menu.editNote = function () {
+    menu.tempKey = menu.loadedKey;
+    menu.tempValue = menu.loadedValue;
+    console.log("hey", menu.loadedKey);
+    console.log("hey again", menu.loadedValue);
     menu.editMode = true;
   }
 
-  menu.addNote = function () {
-    var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
+  menu.clear2 = function () {
+    console.log("Should this cancel the edit? Or clear the fields?");
+  }
 
-      var title = notes.titleInput;
-      var content = notes.contentInput;
-        if (savedNotes.hasOwnProperty(title) === false) {
-          savedNotes[title] = content;
-          localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-          notes.clear();
-          $scope.$parent.menu.refreshMenu();
-          // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
-        } else {
-          console.log("you already have a note by this title");
-        }
+  menu.addNote2 = function () {
+    console.log("STORED DATA", menu.savedNotes);
+    console.log("menu.tempKey", menu.tempKey);
+    delete menu.savedNotes[menu.tempKey];
+
+    var title = menu.loadedKey;
+    var content = menu.loadedValue;
+
+    delete menu.savedNotes[title];
+    menu.savedNotes[title] = content;
+    localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
+    menu.refreshMenu();
+
+    // if (menu.savedNotes.hasOwnProperty(title) === false) {
+    //   menu.savedNotes[title] = content;
+    //   localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
+    //   menu.refreshMenu();
+    // } else {
+    //   console.log("you already have a note by this title");
+    //   // delete menu.savedNotes[title];
+    // }
+    menu.editMode = false;
   };
 
 })
