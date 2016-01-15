@@ -13,6 +13,7 @@ angular.module('starter.controllers', [])
   var menu = this;
   menu.tempKey = '';
   menu.tempValue = '';
+  menu.editMode = false;
 
   menu.refreshMenu = function () {
     menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
@@ -20,6 +21,7 @@ angular.module('starter.controllers', [])
   menu.refreshMenu();
 
   menu.loadNote = function (key, value)  {
+    menu.editMode = false;
     menu.loadedKey = key;
     menu.loadedValue = value;
     console.log("menu.loadedValue", menu.loadedValue);
@@ -38,7 +40,7 @@ angular.module('starter.controllers', [])
     });
     $state.go('app.playlists');;
   };
-  menu.editMode = false;
+
   menu.editNote = function () {
     menu.tempKey = menu.loadedKey;
     menu.tempValue = menu.loadedValue;
