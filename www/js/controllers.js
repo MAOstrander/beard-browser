@@ -29,6 +29,8 @@ angular.module('starter.controllers', [])
   }
 
   menu.deleteNote = function (key) {
+    menu.loadedKey = "";
+    menu.loadedValue = "";
     console.log("key", key);
     console.log("pre delete menu.savedNotes", menu.savedNotes);
     delete menu.savedNotes[key];
