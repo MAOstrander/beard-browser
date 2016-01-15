@@ -1,21 +1,22 @@
 <ion-view view-title="{{menu.loadedKey}}">
-  <ion-content>
-    <div class="card" ng-if="!menu.editMode">
-      <div class="item item-text-wrap">
-        {{menu.loadedValue}}
+  <ion-content class="padding">
+    <div ng-if="!menu.editMode">
+      <div class="card">
+        <div class="item item-text-wrap">
+          {{menu.loadedValue}}
+        </div>
       </div>
       <div class="button-bar">
         <a class="button button-energized button-full" ng-disabled="noteInput.$invalid" ng-click="menu.editNote()">Edit</a>
         <a class="button button-assertive button-full" ng-click="menu.deleteNote(menu.loadedKey)">Delete</a>
       </div>
     </div>
-
     <form class="list" name="noteInput" ng-if="menu.editMode">
       <label class="item item-input">
         <input ng-model="menu.loadedKey" type="text" placeholder="Title" required>
       </label>
       <label class="item item-input">
-        <textarea ng-model="menu.loadedValue" placeholder="Content" rows="10" required></textarea>
+        <textarea ng-model="menu.loadedValue" placeholder="Content" rows="5" required></textarea>
       </label>
       <div class="button-bar">
         <a class="button button-balanced button-full" ng-disabled="noteInput.$invalid" ng-click="menu.addNote()">Save</a>
