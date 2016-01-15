@@ -11,6 +11,11 @@ angular.module('starter.controllers', [])
   //});
 
   var menu = this;
+
+  menu.tempTitle = "";
+  menu.tempValue = "";
+  menu.editMode = false;
+
   menu.refreshMenu = function () {
     menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
   };
@@ -36,10 +41,6 @@ angular.module('starter.controllers', [])
     });
     $state.go('app.playlists');
   };
-
-  menu.editMode = false;
-  menu.tempTitle = "";
-  menu.tempValue = "";
 
   menu.editNote = function () {
     menu.tempValue = menu.loadedValue;
