@@ -17,6 +17,7 @@ angular.module('starter.controllers', [])
   menu.refreshMenu();
 
   menu.loadNote = function (key, value)  {
+    menu.editMode = false;
     menu.loadedKey = key;
     menu.loadedValue = value;
     console.log("menu.loadedValue", menu.loadedValue);
@@ -38,11 +39,10 @@ angular.module('starter.controllers', [])
 
   menu.editMode = false;
   menu.tempTitle = "";
+  menu.tempValue = "";
 
-  menu.editNote = function (key, value) {
-    console.log("hey");
-    menu.tempKey = key;
-    menu.tempValue = value;
+  menu.editNote = function () {
+    menu.tempValue = menu.loadedValue;
     menu.tempTitle = menu.loadedKey;
     menu.editMode = true;
   };
@@ -53,16 +53,16 @@ angular.module('starter.controllers', [])
   };
 
   menu.addNote = function () {
-    var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
-    var titleToDelete = menu.tempTitle;
-    delete menu.savedNotes[titleToDelete];
+    // var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
+    // var titleToDelete = menu.tempTitle;
+    delete menu.savedNotes[menu.tempTitle];
     localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
-    savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+    menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
     var title = menu.loadedKey;
     var content = menu.loadedValue;
-      if (savedNotes.hasOwnProperty(title) === false) {
-        savedNotes[title] = content;
-        localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+      if (menu.savedNotes.hasOwnProperty(title) === false) {
+        menu.savedNotes[title] = content;
+        localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
         menu.editMode = false;
         menu.clear();
         menu.refreshMenu();
@@ -73,6 +73,14 @@ angular.module('starter.controllers', [])
         // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
       } else {
         console.log("you already have a note by this title");
+          // menu.tempValue = menu.loadedValue;
+          // menu.tempTitle = menu.loadedKey;
+          // menu.loadedValue = menu.tempValue;
+          // menu.loadedKey = menu.tempTitle;
+          menu.savedNotes[menu.tempTitle] = menu.tempValue;
+          localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
+          menu.refreshMenu();
+
       }
   };
 
