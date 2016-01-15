@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
   var menu = this;
   menu.refreshMenu = function () {
     menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
-  }
+  };
   menu.refreshMenu();
 
   menu.loadNote = function (key, value)  {
@@ -33,30 +33,47 @@ angular.module('starter.controllers', [])
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
-    $state.go('app.playlists');;
+    $state.go('app.playlists');
   };
+
   menu.editMode = false;
+  menu.tempTitle = "";
+
   menu.editNote = function (key, value) {
     console.log("hey");
     menu.tempKey = key;
     menu.tempValue = value;
+    menu.tempTitle = menu.loadedKey;
     menu.editMode = true;
-  }
+  };
+
+  menu.clear = function () {
+      menu.loadedKey = "";
+      menu.loadedValue = "";
+  };
 
   menu.addNote = function () {
     var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
-
-      var title = notes.titleInput;
-      var content = notes.contentInput;
-        if (savedNotes.hasOwnProperty(title) === false) {
-          savedNotes[title] = content;
-          localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-          notes.clear();
-          $scope.$parent.menu.refreshMenu();
-          // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
-        } else {
-          console.log("you already have a note by this title");
-        }
+    var titleToDelete = menu.tempTitle;
+    delete menu.savedNotes[titleToDelete];
+    localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
+    savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+    var title = menu.loadedKey;
+    var content = menu.loadedValue;
+      if (savedNotes.hasOwnProperty(title) === false) {
+        savedNotes[title] = content;
+        localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+        menu.editMode = false;
+        menu.clear();
+        menu.refreshMenu();
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
+        $state.go('app.playlists');
+        // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+      } else {
+        console.log("you already have a note by this title");
+      }
   };
 
 })
@@ -72,7 +89,6 @@ angular.module('starter.controllers', [])
 
     notes.addNote = function () {
       var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
-        console.log("history", history);
       var title = notes.titleInput;
       var content = notes.contentInput;
         if (savedNotes.hasOwnProperty(title) === false) {
