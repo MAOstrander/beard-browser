@@ -77,7 +77,7 @@ angular.module('starter.controllers', [])
           // menu.tempValue = menu.loadedValue;
           // menu.tempTitle = menu.loadedKey;
           // menu.loadedValue = menu.tempValue;
-          // menu.loadedKey = menu.tempTitle;
+          menu.loadedKey = menu.tempTitle;
           menu.savedNotes[menu.tempTitle] = menu.tempValue;
           localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
           menu.refreshMenu();
