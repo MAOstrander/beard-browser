@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +20,41 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.$on( '$stateChangeStart', function(e, toState  , toParams
+                                                   , fromState, fromParams) {
+    console.log("Hello from the .run");
+        // var toNote = toState.name === "app.single";
+        // if(toNote){
+        //   console.log("You're looking at a note");
+        //    return; // no need to redirect
+        // }
+
+        console.log("STATE CHANGE EVENT:", e);
+        console.log("STATE toState:", toState);
+        console.log("STATE toParams:", toParams);
+        console.log("STATE fromState:", fromState);
+        console.log("STATE fromParams:", fromParams);
+        // // now, redirect only not authenticated
+
+        if ($rootScope.test === 'deleted') {
+          // console.log("$rootScope.testKey = ", $rootScope.testKey);
+          // console.log("$rootScope.testValue = ", $rootScope.testValue);
+          console.log("NOPE!!!!!");
+          e.preventDefault(); // stop current execution
+          $rootScope.test = 'release';
+          $state.go('app.playlists'); // go to playlist
+          return
+        }
+
+        // var noteThere = menu.loadedKey;
+        // console.log("noteThere", noteThere);
+        // if(userInfo.authenticated === false) {
+        //     e.preventDefault(); // stop current execution
+        //     $state.go('login'); // go to login
+        // }
+    });
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

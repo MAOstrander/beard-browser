@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicHistory, $state) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicHistory, $state, $rootScope) {
 
 
   // With the new view caching in Ionic, Controllers are only called
@@ -25,15 +25,22 @@ angular.module('starter.controllers', [])
     menu.editMode = false;
     menu.loadedKey = key;
     menu.loadedValue = value;
+    $rootScope.testKey = key;
+    $rootScope.testValue = value;
     console.log("menu.loadedValue", menu.loadedValue);
   }
 
   menu.deleteNote = function (key) {
-    menu.loadedKey = "";
-    menu.loadedValue = "";
+    // $rootScope.test = 'loaded';
+    // $rootScope.testKey = '';
+    // $rootScope.testValue = '';
+
+    $rootScope.test = 'deleted';
     console.log("key", key);
     console.log("pre delete menu.savedNotes", menu.savedNotes);
     delete menu.savedNotes[key];
+    menu.loadedKey = "You deleted this note!";
+    menu.loadedValue = "";
     console.log("post delete menu.savedNotes", menu.savedNotes);
     localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
     menu.refreshMenu();
