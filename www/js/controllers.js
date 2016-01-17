@@ -90,7 +90,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('PlaylistsCtrl', function($scope) {
+.controller('PlaylistsCtrl', function($scope, $ionicPopup) {
     var notes = this;
 
     notes.clear = function () {
@@ -104,8 +104,8 @@ angular.module('starter.controllers', [])
       // var title = notes.titleInput;
       // var content = notes.contentInput;
       console.log("true", notes.savedNotes.hasOwnProperty(notes.titleInput) );
-        // if (notes.savedNotes.hasOwnProperty(notes.titleInput) === false && notes.titleInput !== "") {
-        if (notes.savedNotes.hasOwnProperty(notes.titleInput) === false) {
+        if (notes.savedNotes.hasOwnProperty(notes.titleInput) === false && notes.titleInput !== ""  && notes.contentInput !== "") {
+        // if (notes.savedNotes.hasOwnProperty(notes.titleInput) === false) {
           notes.savedNotes[notes.titleInput] = notes.contentInput;
           localStorage.setItem('savedNotes', JSON.stringify(notes.savedNotes));
           // notes.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
@@ -113,9 +113,11 @@ angular.module('starter.controllers', [])
           notes.titleInput = "";
           notes.contentInput = "";
           $scope.$parent.menu.refreshMenu();
+          $ionicPopup.alert({title: "Note saved"});
         } else {
           console.log("notes.addNote. you already have a note by this title");
           console.log("title", notes.titleInput);
+          $ionicPopup.alert({title: "Your note needs an original title and content"});
           // $scope.$parent.menu.refreshMenu();
         }
     };
