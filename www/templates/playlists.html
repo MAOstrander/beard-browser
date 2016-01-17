@@ -1,18 +1,16 @@
 <ion-view view-title="New Note" ng-controller="PlaylistsCtrl as notes">
   <ion-content class="padding">
-    <form class="list" name="noteInput">
+    <div class="list" name="noteInput">
       <label class="item item-input">
         <input ng-model="notes.titleInput" type="text" placeholder="Title" required>
       </label>
       <label class="item item-input">
         <textarea ng-model="notes.contentInput" placeholder="Content" rows="5" required></textarea>
       </label>
-      <!-- <button class="item button button-full button-balanced" ng-disabled="noteInput.$invalid" ng-click="notes.addNote()">Save</button> -->
-      <!-- <button class="item button button-full button-assertive" ng-click="notes.clear()">Clear</button> -->
       <div class="button-bar">
         <a class="button button-balanced button-full" ng-disabled="noteInput.$invalid" ng-click="notes.addNote()">Save</a>
         <a class="button button-assertive button-full" ng-click="notes.clear()">Clear</a>
-      </form>
+      </div>
     </div>
   </ion-content>
 </ion-view>

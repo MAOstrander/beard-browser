@@ -63,28 +63,28 @@ angular.module('starter.controllers', [])
     menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
     var title = menu.loadedKey;
     var content = menu.loadedValue;
-      if (menu.savedNotes.hasOwnProperty(title) === false) {
-        menu.savedNotes[title] = content;
+    if (menu.savedNotes.hasOwnProperty(title) === false && notes.titleInput !== "") {
+      menu.savedNotes[title] = content;
+      localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
+      menu.editMode = false;
+      menu.clear();
+      menu.refreshMenu();
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      $state.go('app.playlists');
+      // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+    } else {
+      console.log("menu.addNote. you already have a note by this title");
+        // menu.tempValue = menu.loadedValue;
+        // menu.tempTitle = menu.loadedKey;
+        // menu.loadedValue = menu.tempValue;
+        menu.loadedKey = menu.tempTitle;
+        menu.savedNotes[menu.tempTitle] = menu.tempValue;
         localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
-        menu.editMode = false;
-        menu.clear();
         menu.refreshMenu();
-        $ionicHistory.nextViewOptions({
-          disableBack: true
-        });
-        $state.go('app.playlists');
-        // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
-      } else {
-        console.log("you already have a note by this title");
-          // menu.tempValue = menu.loadedValue;
-          // menu.tempTitle = menu.loadedKey;
-          // menu.loadedValue = menu.tempValue;
-          menu.loadedKey = menu.tempTitle;
-          menu.savedNotes[menu.tempTitle] = menu.tempValue;
-          localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
-          menu.refreshMenu();
 
-      }
+    }
   };
 
 })
@@ -96,20 +96,27 @@ angular.module('starter.controllers', [])
     notes.clear = function () {
       notes.titleInput = "";
       notes.contentInput = "";
+      console.log("you clicked clear");
     };
 
     notes.addNote = function () {
-      var savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
-      var title = notes.titleInput;
-      var content = notes.contentInput;
-        if (savedNotes.hasOwnProperty(title) === false) {
-          savedNotes[title] = content;
-          localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-          notes.clear();
+      notes.savedNotes = JSON.parse(localStorage.getItem("savedNotes")) || {};
+      // var title = notes.titleInput;
+      // var content = notes.contentInput;
+      console.log("true", notes.savedNotes.hasOwnProperty(notes.titleInput) );
+        // if (notes.savedNotes.hasOwnProperty(notes.titleInput) === false && notes.titleInput !== "") {
+        if (notes.savedNotes.hasOwnProperty(notes.titleInput) === false) {
+          notes.savedNotes[notes.titleInput] = notes.contentInput;
+          localStorage.setItem('savedNotes', JSON.stringify(notes.savedNotes));
+          // notes.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
+          // notes.clear();
+          notes.titleInput = "";
+          notes.contentInput = "";
           $scope.$parent.menu.refreshMenu();
-          // menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
         } else {
-          console.log("you already have a note by this title");
+          console.log("notes.addNote. you already have a note by this title");
+          console.log("title", notes.titleInput);
+          // $scope.$parent.menu.refreshMenu();
         }
     };
 })
