@@ -63,7 +63,7 @@ angular.module('starter.controllers', [])
     menu.savedNotes = JSON.parse(localStorage.getItem("savedNotes"));
     var title = menu.loadedKey;
     var content = menu.loadedValue;
-    if (menu.savedNotes.hasOwnProperty(title) === false && notes.titleInput !== "") {
+    if (menu.savedNotes.hasOwnProperty(title) === false && title !== "") {
       menu.savedNotes[title] = content;
       localStorage.setItem('savedNotes', JSON.stringify(menu.savedNotes));
       menu.editMode = false;
