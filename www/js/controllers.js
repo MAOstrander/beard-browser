@@ -25,7 +25,7 @@ angular.module('starter.controllers', [])
     menu.editMode = false;
     menu.loadedKey = key;
     menu.loadedValue = value;
-    console.log("menu.loadedValue", menu.loadedValue);
+    console.log("menu.loadedValue", menu.loadedValue, "menu.loadedKey", menu.loadedKey);
   }
 
   menu.deleteNote = function (key) {
